@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">elegion-multithreading</string>
+    <string name="btnStartServiceText">Запустить сервис</string>
+    <string name="btnStopServiceText">Остановить сервис</string>
+</resources>
