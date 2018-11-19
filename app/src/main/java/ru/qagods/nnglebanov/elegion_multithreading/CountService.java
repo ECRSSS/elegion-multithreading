@@ -23,26 +23,29 @@ public class CountService extends Service {
 
     @Override
     public void onCreate() {
-        Log.d(TAG,"OnCreate:");
+        Log.d(TAG, "OnCreate:");
         mScheduledExecutorService = Executors.newScheduledThreadPool(1);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG,"OnStartCommand:");
+        Log.d(TAG, "OnStartCommand:");
         mScheduledExecutorService.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG, "run: "+System.currentTimeMillis());
-                sendBroadcast(new Intent(SimpleReceiver.SIMPLE_ACTION));
+                long time = System.currentTimeMillis();
+                Log.d(TAG, "run: " + System.currentTimeMillis());
+                Intent intentToSendBroadcast = new Intent(SimpleReceiver.SIMPLE_ACTION);
+                intentToSendBroadcast.putExtra("Time",time);
+                sendBroadcast(intentToSendBroadcast);
             }
-        },1000,4000,TimeUnit.MILLISECONDS);
+        }, 1000, 4000, TimeUnit.MILLISECONDS);
         return START_STICKY;
     }
 
     @Override
     public void onDestroy() {
         mScheduledExecutorService.shutdownNow();
-        Log.d(TAG,"OnDestroy:");
+        Log.d(TAG, "OnDestroy:");
     }
 }

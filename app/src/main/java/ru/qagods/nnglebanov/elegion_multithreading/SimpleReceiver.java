@@ -11,6 +11,10 @@ public class SimpleReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context,intent.getAction(),Toast.LENGTH_SHORT).show();
+        long time=intent.getLongExtra("Time",-1);
+        Toast.makeText(context,time+"",Toast.LENGTH_SHORT).show();
+        Intent intentToTempActivity=new Intent(context,TempActivity.class);
+        intentToTempActivity.putExtra("Time",time);
+        context.startActivity(intentToTempActivity);
     }
 }
